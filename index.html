@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instituto Bíblico - CC Renacer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f5f5f5;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* HEADER PRINCIPAL */
+        .main-header {
+            background: linear-gradient(135deg, #2d5016 0%, #4a7c24 100%);
+            color: white;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .main-header h1 {
+            font-size: 22px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .main-header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        /* BOTÓN VOLVER */
+        .back-button {
+            background: #4a7c24;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 15px;
+            cursor: pointer;
+            margin: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            font-weight: 500;
+        }
+
+        .back-button:active {
+            transform: scale(0.98);
+        }
+
+        /* CARDS DE CATEGORÍAS Y CLASES */
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 18px;
+            margin: 15px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+            cursor: pointer;
+            transition: all 0.2s;
+            border-left: 4px solid #4a7c24;
+        }
+
+        .card:active {
+            transform: scale(0.98);
+        }
+
+        .card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        .card-title {
+            color: #2d3748;
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            line-height: 1.4;
+        }
+
+        .card-subtitle {
+            color: #718096;
+            font-size: 14px;
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #e8f5e9;
+            color: #2d5016;
+            padding: 5px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        .numero-leccion {
+            background: #4a7c24;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        /* HEADER DE DETALLE */
+        .detail-header {
+            background: white;
+            padding: 20px;
+            margin: 15px;
+            border-radius: 12px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+        }
+
+        .detail-header .categoria-badge {
+            background: #e8f5e9;
+            color: #2d5016;
+            padding: 6px 14px;
+            border-radius: 16px;
+            font-size: 13px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+
+        .detail-header .tema-principal {
+            color: #4a7c24;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .detail-header .titulo {
+            color: #2d3748;
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 1.5;
+            margin-bottom: 0;
+        }
+
+        /* CONTENIDO DE LA LECCIÓN */
+        .lesson-content {
+            background: white;
+            padding: 20px;
+            margin: 15px;
+            border-radius: 12px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+        }
+
+        .lesson-content .section-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #e8f5e9;
+        }
+
+        .lesson-content .section-header .icon {
+            color: #4a7c24;
+            font-size: 20px;
+        }
+
+        .lesson-content .section-header h2 {
+            color: #4a7c24;
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        /* TÍTULO DE LA LECCIÓN CON BORDE VERDE */
+        .lesson-content .leccion-title {
+            background: #f7fafc;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #4a7c24;
+        }
+
+        .lesson-content .leccion-title h3 {
+            color: #2d3748;
+            font-size: 13px;
+            font-weight: 600;
+            margin: 0;
+            letter-spacing: 0.3px;
+        }
+
+        /* SECCIONES PRINCIPALES (INTRODUCCIÓN, etc.) */
+        .lesson-content .main-section {
+            color: #5a5a5a;
+            font-size: 15px;
+            font-weight: 700;
+            margin: 30px 0 16px 0;
+            letter-spacing: 0.5px;
+        }
+
+        /* PÁRRAFOS DEL CONTENIDO - MUY IMPORTANTE */
+        .lesson-content p {
+            color: #2d3748;
+            font-size: 15px;
+            line-height: 1.8;
+            margin-bottom: 20px;  /* Espacio entre párrafos */
+            text-align: justify;
+        }
+
+        /* CITAS BÍBLICAS EN CURSIVA */
+        .lesson-content .verse-quote {
+            font-style: italic;
+            color: #2d3748;
+        }
+
+        /* REFERENCIAS BÍBLICAS EN VERDE */
+        .lesson-content .verse-reference {
+            color: #4a7c24;
+            font-weight: 600;
+            font-style: normal;
+        }
+
+        /* LOADING */
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .spinner {
+            border: 4px solid rgba(74, 124, 36, 0.2);
+            border-top: 4px solid #4a7c24;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading p {
+            color: #718096;
+            font-size: 16px;
+        }
+
+        /* ERROR */
+        .error {
+            background: #fff5f5;
+            color: #c53030;
+            padding: 16px;
+            border-radius: 10px;
+            margin: 15px;
+            border-left: 4px solid #c53030;
+            font-size: 14px;
+        }
+
+        /* UTILIDADES */
+        .hidden {
+            display: none;
+        }
+
+        #content {
+            display: none;
+        }
+
+        #content.active {
+            display: block;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 600px) {
+            .main-header h1 {
+                font-size: 20px;
+            }
+
+            .lesson-content {
+                padding: 16px;
+                margin: 10px;
+            }
+
+            .detail-header {
+                padding: 16px;
+                margin: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Principal -->
+    <div class="main-header">
+        <h1>📖 Instituto Bíblico</h1>
+        <p>Centro Cristiano Renacer</p>
+        <button onclick="cerrarSesion()" style="
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    background: rgba(255,255,255,0.2);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+">
+    Cerrar Sesión
+</button>
+    </div>
+
+    <div class="container">
+        <!-- Botón volver -->
+        <button class="back-button hidden" id="backButton" onclick="goBack()">
+            ← Volver
+        </button>
+
+        <!-- Área de contenido -->
+        <div id="content"></div>
+
+        <!-- Loading -->
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Cargando...</p>
+        </div>
+    </div>
+
+    <script>
+           // Verificar sesión al cargar la página
+    (function() {
+        const userData = localStorage.getItem('ccr_user_data');
+        
+        if (!userData) {
+            // No hay sesión, redirigir al login
+            window.location.href = 'login.html';
+            return;
+        }
+
+        try {
+            const user = JSON.parse(userData);
+            
+            // Verificar si la sesión no ha expirado (24 horas)
+            const loginTime = new Date(user.loginTime).getTime();
+            const now = new Date().getTime();
+            const hoursElapsed = (now - loginTime) / (1000 * 60 * 60);
+            
+            if (hoursElapsed >= 24) {
+                // Sesión expirada
+                localStorage.removeItem('ccr_user_data');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            console.log('✅ Sesión válida para:', user.email);
+        } catch (error) {
+            console.error('Error verificando sesión:', error);
+            localStorage.removeItem('ccr_user_data');
+            window.location.href = 'login.html';
+        }
+    })();
+        const API_URL = 'https://hvudiurmgrqcirysotdg.supabase.co/rest/v1';
+        const API_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh2dWRpdXJtZ3JxY2lyeXNvdGRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE0NDkwNzEsImV4cCI6MjA2NzAyNTA3MX0.DQxa8YbjkhbW0t7uORYa20sK6W4_It8ZWZ77viZJLcU';
+
+        let currentView = 'categorias';
+        let currentCategoria = null;
+
+        
+        const headers = {
+            'apikey': API_KEY,
+            'Authorization': `Bearer ${API_KEY}`,
+            'Content-Type': 'application/json',
+            'Prefer': 'return=representation'
+        };
+
+        function showLoading(show) {
+            document.getElementById('loading').style.display = show ? 'block' : 'none';
+        }
+
+        function showError(message) {
+            const content = document.getElementById('content');
+            content.innerHTML = `<div class="error">⚠️ ${message}</div>`;
+            content.classList.add('active');
+        }
+
+        async function cargarCategorias() {
+            try {
+                showLoading(true);
+                currentView = 'categorias';
+                document.getElementById('backButton').classList.add('hidden');
+
+                const response = await fetch(
+                    `${API_URL}/instituto_categorias?select=*&activa=eq.true&order=orden.asc`,
+                    { headers }
+                );
+
+                if (!response.ok) throw new Error('Error al cargar categorías');
+
+                const categorias = await response.json();
+                mostrarCategorias(categorias);
+            } catch (error) {
+                console.error('Error:', error);
+                showError('No se pudieron cargar las categorías. Por favor, intenta de nuevo.');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        function mostrarCategorias(categorias) {
+            const content = document.getElementById('content');
+            
+            if (categorias.length === 0) {
+                content.innerHTML = '<div class="card"><p>No hay categorías disponibles</p></div>';
+                content.classList.add('active');
+                return;
+            }
+
+            let html = '';
+            categorias.forEach(cat => {
+                html += `
+                    <div class="card" onclick="cargarClases(${cat.id}, '${cat.nombre.replace(/'/g, "\\'")}')">
+                        <div class="card-title">${cat.nombre}</div>
+                        ${cat.descripcion ? `<div class="card-subtitle">${cat.descripcion}</div>` : ''}
+                        <span class="badge">Ver clases →</span>
+                    </div>
+                `;
+            });
+
+            content.innerHTML = html;
+            content.classList.add('active');
+        }
+
+        async function cargarClases(categoriaId, categoriaNombre) {
+            try {
+                showLoading(true);
+                currentView = 'clases';
+                currentCategoria = { id: categoriaId, nombre: categoriaNombre };
+                document.getElementById('backButton').classList.remove('hidden');
+
+                const response = await fetch(
+                    `${API_URL}/rpc/obtener_clases_instituto`,
+                    {
+                        method: 'POST',
+                        headers,
+                        body: JSON.stringify({ p_categoria_id: categoriaId })
+                    }
+                );
+
+                if (!response.ok) throw new Error('Error al cargar clases');
+
+                const clases = await response.json();
+                mostrarClases(clases, categoriaNombre);
+            } catch (error) {
+                console.error('Error:', error);
+                showError('No se pudieron cargar las clases. Por favor, intenta de nuevo.');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        function mostrarClases(clases, categoriaNombre) {
+            const content = document.getElementById('content');
+            
+            if (clases.length === 0) {
+                content.innerHTML = '<div class="card"><p>No hay clases disponibles en esta categoría</p></div>';
+                return;
+            }
+
+            let html = '';
+            clases.forEach(clase => {
+                html += `
+                    <div class="card" onclick="cargarDetalle(${clase.id})">
+                        ${clase.numero_leccion ? `<span class="numero-leccion">Lección ${clase.numero_leccion}</span>` : ''}
+                        <div class="card-title">${clase.titulo}</div>
+                        ${clase.tema_principal ? `<div class="card-subtitle">${clase.tema_principal}</div>` : ''}
+                        <span class="badge">Leer →</span>
+                    </div>
+                `;
+            });
+
+            content.innerHTML = html;
+        }
+
+        async function cargarDetalle(claseId) {
+            try {
+                showLoading(true);
+                currentView = 'detalle';
+
+                const response = await fetch(
+                    `${API_URL}/rpc/obtener_clase_instituto_por_id`,
+                    {
+                        method: 'POST',
+                        headers,
+                        body: JSON.stringify({ p_id: claseId })
+                    }
+                );
+
+                if (!response.ok) throw new Error('Error al cargar detalle');
+
+                const clases = await response.json();
+                if (clases.length === 0) throw new Error('Clase no encontrada');
+
+                mostrarDetalle(clases[0]);
+            } catch (error) {
+                console.error('Error:', error);
+                showError('No se pudo cargar el contenido de la clase. Por favor, intenta de nuevo.');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        function procesarContenido(contenido) {
+            // Dividir por párrafos (líneas vacías)
+            let parrafos = contenido.split(/\n\s*\n/);
+            let html = '';
+            
+            parrafos.forEach(parrafo => {
+                parrafo = parrafo.trim();
+                
+                if (!parrafo) return; // Saltar párrafos vacíos
+                
+                // Detectar si es una sección (todo en mayúsculas)
+                if (/^[A-ZÁÉÍÓÚÑ\s]{5,}$/.test(parrafo)) {
+                    html += `<div class="main-section">${parrafo}</div>`;
+                    return;
+                }
+                
+                // Procesar el párrafo
+                let texto = parrafo;
+                
+                // Reemplazar saltos de línea simples por espacios
+                texto = texto.replace(/\n/g, ' ');
+                
+                // Limpiar espacios múltiples
+                texto = texto.replace(/\s+/g, ' ');
+                
+                // Detectar referencias bíblicas
+                texto = texto.replace(/\(([1-3]?\s?[A-Za-záéíóúñÑ]+\s+\d+:\d+(-\d+)?)\)/g, 
+                    '<span class="verse-reference">($1)</span>');
+                
+                // Detectar citas entre comillas
+                texto = texto.replace(/"([^"]+)"/g, '<span class="verse-quote">"$1"</span>');
+                
+                // Agregar como párrafo
+                html += `<p>${texto}</p>`;
+            });
+            
+            return html;
+        }
+
+        function mostrarDetalle(clase) {
+            const content = document.getElementById('content');
+            
+            const contenidoProcesado = procesarContenido(clase.contenido);
+            
+            content.innerHTML = `
+                <!-- Header de la clase -->
+                <div class="detail-header">
+                    <span class="categoria-badge">${currentCategoria.nombre}</span>
+                    ${clase.numero_leccion ? `<span class="numero-leccion">Lección ${clase.numero_leccion}</span>` : ''}
+                    <h1 class="tema-principal">${clase.tema_principal || 'Clase Instituto Bíblico'}</h1>
+                    <h2 class="titulo">${clase.titulo}</h2>
+                </div>
+
+                <!-- Contenido de la lección -->
+                <div class="lesson-content">
+                    <div class="section-header">
+                        <span class="icon">📖</span>
+                        <h2>Enseñanza</h2>
+                    </div>
+                    
+                    <div class="leccion-title">
+                        <h3>📚 LECCIÓN ${clase.numero_leccion || ''}: ${clase.titulo.toUpperCase()}</h3>
+                    </div>
+                    
+                    ${contenidoProcesado}
+                </div>
+            `;
+        }
+
+        function goBack() {
+            if (currentView === 'detalle') {
+                cargarClases(currentCategoria.id, currentCategoria.nombre);
+            } else if (currentView === 'clases') {
+                cargarCategorias();
+            }
+        }
+
+        // Iniciar la aplicación
+        cargarCategorias();
+        function cerrarSesion() {
+    if (confirm('¿Estás seguro que deseas cerrar sesión?')) {
+        localStorage.removeItem('ccr_user_data');
+        window.location.href = 'login.html';
+    }
+}
+    </script>
+</body>
+</html>

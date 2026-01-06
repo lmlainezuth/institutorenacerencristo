@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Instituto Bíblico CC Renacer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #f5f1e8 0%, #e8dcc4 50%, #ffffff 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-container {
+            max-width: 420px;
+            width: 100%;
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #86bc42 0%, #4a7c24 100%);
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            box-shadow: 0 4px 12px rgba(74, 124, 36, 0.3);
+        }
+
+        h1 {
+            color: #4a7c24;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            color: #8b6f47;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .login-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px 35px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        .form-title {
+            color: #4a7c24;
+            font-size: 22px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            color: #8b6f47;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 15px;
+            transition: all 0.3s;
+            background: #f5f1e8;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #4a7c24;
+            background: white;
+        }
+
+        .password-container {
+            position: relative;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            color: #8b6f47;
+            font-size: 20px;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #4a7c24 0%, #2d5016 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.3s;
+            box-shadow: 0 4px 12px rgba(74, 124, 36, 0.3);
+            margin-top: 10px;
+        }
+
+        .login-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(74, 124, 36, 0.4);
+        }
+
+        .login-button:active {
+            transform: translateY(0);
+        }
+
+        .login-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .error-message {
+            background: #fff5f5;
+            color: #c53030;
+            padding: 12px 16px;
+            border-radius: 10px;
+            border-left: 4px solid #c53030;
+            font-size: 14px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 25px;
+            color: #4a7c24;
+            font-size: 12px;
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 480px) {
+            .login-card {
+                padding: 30px 25px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .logo {
+                width: 80px;
+                height: 80px;
+                font-size: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo-container">
+            <div class="logo">📖</div>
+            <h1>Bienvenido</h1>
+            <p class="subtitle">Centro Cristiano Renacer en Cristo</p>
+        </div>
+
+        <div class="login-card">
+            <h2 class="form-title">Iniciar Sesión</h2>
+
+            <div id="errorMessage" class="error-message"></div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Correo Electrónico</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        placeholder="miembro@ccrenacer.com"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Contraseña</label>
+                    <div class="password-container">
+                        <input 
+                            type="password" 
+                            id="password" 
+                            name="password" 
+                            placeholder="••••••••"
+                            required
+                        >
+                        <button type="button" class="toggle-password" id="togglePassword">
+                            👁️
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" class="login-button" id="loginButton">
+                    <span id="buttonText">Ingresar</span>
+                    <span id="buttonLoading" class="loading" style="display: none;"></span>
+                </button>
+            </form>
+
+            <div class="footer">
+                "Porque donde están dos o tres congregados en mi nombre,<br>
+                allí estoy yo en medio de ellos." - Mateo 18:20
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'https://hvudiurmgrqcirysotdg.supabase.co/auth/v1';
+        const API_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh2dWRpdXJtZ3JxY2lyeXNvdGRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE0NDkwNzEsImV4cCI6MjA2NzAyNTA3MX0.DQxa8YbjkhbW0t7uORYa20sK6W4_It8ZWZ77viZJLcU';
+
+        // Verificar si ya hay sesión activa al cargar la página
+        window.addEventListener('DOMContentLoaded', () => {
+            const userData = localStorage.getItem('ccr_user_data');
+            if (userData) {
+                const user = JSON.parse(userData);
+                // Verificar si la sesión no ha expirado (24 horas)
+                const loginTime = new Date(user.loginTime).getTime();
+                const now = new Date().getTime();
+                const hoursElapsed = (now - loginTime) / (1000 * 60 * 60);
+                
+                if (hoursElapsed < 24) {
+                    // Sesión válida, redirigir
+                    window.location.href = 'index.html';
+                    return;
+                }
+            }
+
+            // Auto-rellenar email si existe
+            const savedEmail = localStorage.getItem('ccr_last_email');
+            if (savedEmail) {
+                document.getElementById('email').value = savedEmail;
+            }
+        });
+
+        // Toggle mostrar/ocultar contraseña
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            const type = passwordInput.type === 'password' ? 'text' : 'password';
+            passwordInput.type = type;
+            this.textContent = type === 'password' ? '👁️' : '🙈';
+        });
+
+        // Función para mostrar error
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.textContent = '⚠️ ' + message;
+            errorDiv.classList.add('show');
+            
+            setTimeout(() => {
+                errorDiv.classList.remove('show');
+            }, 5000);
+        }
+
+        // Función para mostrar loading
+        function setLoading(isLoading) {
+            const button = document.getElementById('loginButton');
+            const buttonText = document.getElementById('buttonText');
+            const buttonLoading = document.getElementById('buttonLoading');
+            
+            button.disabled = isLoading;
+            buttonText.style.display = isLoading ? 'none' : 'inline';
+            buttonLoading.style.display = isLoading ? 'inline-block' : 'none';
+        }
+
+        // Manejar el envío del formulario
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
+
+            if (!email || !password) {
+                showError('Por favor completa todos los campos');
+                return;
+            }
+
+            setLoading(true);
+
+            try {
+                const response = await fetch(`${API_URL}/token?grant_type=password`, {
+                    method: 'POST',
+                    headers: {
+                        'apikey': API_KEY,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        password: password
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.access_token) {
+                    // Login exitoso - Guardar datos en localStorage
+                    const userData = {
+                        userId: data.user.id,
+                        email: data.user.email,
+                        accessToken: data.access_token,
+                        refreshToken: data.refresh_token,
+                        loginTime: new Date().toISOString()
+                    };
+
+                    localStorage.setItem('ccr_user_data', JSON.stringify(userData));
+                    localStorage.setItem('ccr_last_email', email);
+
+                    // Redirigir al index
+                    window.location.href = 'index.html';
+                } else {
+                    // Error de autenticación
+                    let errorMessage = 'Usuario o contraseña incorrectos';
+                    
+                    if (response.status === 400) {
+                        errorMessage = 'Datos de login incorrectos';
+                    } else if (response.status === 422) {
+                        errorMessage = 'Email o contraseña inválidos';
+                    } else if (response.status === 429) {
+                        errorMessage = 'Demasiados intentos, intenta más tarde';
+                    }
+
+                    showError(errorMessage);
+                    setLoading(false);
+                }
+            } catch (error) {
+                console.error('Error de login:', error);
+                
+                let errorMessage = 'Error de conexión';
+                
+                if (error.message.includes('timeout')) {
+                    errorMessage = 'Tiempo de conexión agotado';
+                } else if (error.message.includes('network')) {
+                    errorMessage = 'Sin conexión a internet';
+                }
+
+                showError(errorMessage);
+                setLoading(false);
+            }
+        });
+    </script>
+</body>
+</html>
