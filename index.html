@@ -365,7 +365,6 @@
                 return;
             }
 
-            console.log('✅ Sesión válida para:', user.email);
         } catch (error) {
             console.error('Error verificando sesión:', error);
             localStorage.removeItem('ccr_user_data');
@@ -504,7 +503,7 @@
                     {
                         method: 'POST',
                         headers,
-                        body: JSON.stringify({ p_id: claseId })
+                        body: JSON.stringify({ p_clase_id: claseId })
                     }
                 );
 
